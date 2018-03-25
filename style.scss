@@ -1,0 +1,107 @@
+$perspective: 600px;
+$tableAngle: 30deg;
+$levitateDepth: 40px;
+
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Tauri";
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #0F7F00, #61FF4C, #1EFF00, #317F26, #18CC00);
+  perspective: $perspective;
+}
+.selector {
+  margin-bottom: -60px;
+  text-align: center;
+  h3 {
+    margin: 0.1rem;
+    padding: 0.1rem;
+  }
+  .labels {
+    p {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-align: center;
+      width: 60px;
+    }
+  }
+  .slider {
+    div {
+      width: 40px;
+      height: 40px;
+      margin: 0 10px;
+      display: inline-block;
+      border: 10px solid green;
+      background-color: green;
+      border-radius: 50%;
+      transition: 0.2s all;
+      &:hover {
+        cursor: pointer;
+        background-color: lighten(green, 15%);
+      }
+      &.selected {
+        background-color: yellow;
+      }
+    }
+  }
+}
+table {
+  transform-origin: bottom;
+  transform: rotateX($tableAngle);
+  width: 500px;
+  height: 400px;
+  transform-style: preserve-3d;
+  th {
+    width: 100px;
+    user-select: none;
+    border: 2px solid rgba(0,0,0,0.5);
+  }
+  td {
+    transform-origin: 50% 50%;
+    border: 2px solid transparent;
+    background-color: black;
+    opacity: 0.5;
+    transition: 0.2s ease-in-out all;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.95;
+    }
+    &.selected {
+      opacity: 0.95;
+    }
+    &.deselected {
+      opacity: 0.5;
+      transform: none !important;
+    }
+  }
+}
+#flip-up {
+  td:hover, .selected {
+    transform-origin: bottom;
+    transform: rotateX(-1 * $tableAngle);
+  }
+}
+#levitate {
+  td:hover, .selected {
+    transform: translateZ($levitateDepth);
+  }
+}
+#negative-levitate {
+  td {
+    transform: translateZ(-1 * $levitateDepth);
+    &:hover, &.selected {
+      transform: translateZ(0px);
+    }
+  }
+}
